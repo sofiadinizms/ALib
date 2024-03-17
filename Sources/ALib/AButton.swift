@@ -6,6 +6,7 @@ import Accessibility
 @available(macOS 14.0, *)
 
 public struct AButton<Content>: View where Content: View{
+    @Environment(\.self) var environment
     
     var action: () -> Void
     
@@ -36,26 +37,36 @@ public struct AButton<Content>: View where Content: View{
     
     func contrastRatio(color1: Color, color2: Color) -> Double {
         // Convert colors to the sRGB color space
-        let color1 = Color(color1)
-        let color2 = Color(color2)
+        let color1 = Color(color1).resolve(in: environment)
+        let color2 = Color(color2).resolve(in: environment)
         
         // Calculate the luminance of each color
-        func individualFormula(value: Double) -> Double {
-                let Y = ((value + 0.055) / 1.055)
-                return pow(Y, 2.4)
-            }
-        
-        func luminance(color: Color) -> CGFloat {
-            let components = color.cgColor?.components ?? [0, 0, 0, 0] // RGBA or grayscale
-            return individualFormula(value: components[0]) * 0.2126 + individualFormula(value: components[1]) * 0.7152 + individualFormula(value: components[2]) * 0.0722
-        }
-        
         let luminance1 = luminance(color: color1) + 0.05 // Add 0.05 to avoid division by zero
         let luminance2 = luminance(color: color2) + 0.05
         
         // Return the contrast ratio
         
+        print(max(luminance1, luminance2) / min(luminance1, luminance2))
         return max(luminance1, luminance2) / min(luminance1, luminance2)
+    }
+    
+    func luminance(color: Color.Resolved) -> CGFloat {
+    
+        let components = [color.red, color.green, color.blue] // RGBA or grayscale
+        
+
+        let r = individualFormula(value:components[0]) * 0.2126
+        let g = individualFormula(value: components[1]) * 0.7152
+        let b = individualFormula(value: components[2]) * 0.0722
+        
+        return CGFloat(r + g + b)
+    }
+    
+    
+    func individualFormula(value: Float) -> Float {
+        let Y = ((value + 0.055) / 1.055)
+        
+        return pow(Y, 2.4)
     }
     
     
@@ -93,12 +104,14 @@ public struct AButton<Content>: View where Content: View{
                         .frame(minWidth: 44, idealWidth:44 * self.width, minHeight: 44, idealHeight: 44 * self.height)
                     
                         .overlay( RoundedRectangle(cornerRadius: self.cornerRadius)
+                            .fill(self.backgroundColor)
                             .frame(minWidth: 44, idealWidth:44 * self.width, minHeight: 44, idealHeight: 44 * self.height)
                         )
                     
-                        .backgroundStyle(self.backgroundColor)
+                        
                 )
         }
+        .buttonStyle(.plain)
         .accessibilityLabel(self.accessibilityText)
         .padding()
     }

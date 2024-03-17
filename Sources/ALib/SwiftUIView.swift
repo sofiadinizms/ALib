@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by sofiadinizms on 17/03/24.
 //
@@ -13,11 +13,8 @@ struct SwiftUIView: View {
     @State var password: String = ""
     
     var body: some View {
-        
-        
-        AHStack{
-            AText(text: "Hello!", accessibilityText: "Hello!", isDecorative: false)
-            AText(text: "Goodbye!", accessibilityText: "Goodbye!", isDecorative: false)
+        AHStack(backgroundColor: .black, foregroundColor: .white) {
+            Text("cc")
         }
         
         
@@ -28,11 +25,9 @@ struct SwiftUIView: View {
         
     }
 }
-
-//#Preview {
-//    if #available(macOS 12.0, *) {
-//        SwiftUIView()
-//    } else {
-//        // Fallback on earlier versions
-//    }
-//}
+@available(macOS 14.0, *)
+#Preview {
+    
+    SwiftUIView()
+    
+}
