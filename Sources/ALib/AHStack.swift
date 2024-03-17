@@ -32,7 +32,7 @@ public struct AHStack<Content>: View where Content: View{
         
         // Return the contrast ratio
         
-        print(max(luminance1, luminance2) / min(luminance1, luminance2))
+        
         return max(luminance1, luminance2) / min(luminance1, luminance2)
     }
     
