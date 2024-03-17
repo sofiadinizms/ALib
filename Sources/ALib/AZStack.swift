@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Accessibility
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 @available(macOS 14.0, *)
 
 public struct AZStack<Content>: View where Content: View{

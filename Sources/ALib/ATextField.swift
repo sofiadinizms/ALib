@@ -1,7 +1,7 @@
 import SwiftUI
 import Accessibility
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 @available(macOS 12.0, *)
 
 public struct ATextField: View {
