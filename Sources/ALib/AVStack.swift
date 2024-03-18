@@ -81,7 +81,7 @@ public struct AVStack<Content>: View where Content: View{
             if self.foregroundColor != nil{
                 VStack(alignment: alignment, spacing: spacing) {
                     view()
-                }.foregroundColor(contrastRatio(color1: foregroundColor!, color2: backupColor) >= 4.5 ? foregroundColor : backupColor)
+                }.foregroundColor(contrastRatio(color1: foregroundColor!, color2: backgroundColor ?? .clear) >= 4.5 ? foregroundColor : backupColor)
             } else {
                 VStack(alignment: alignment, spacing: spacing) {
                     view()

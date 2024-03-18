@@ -79,7 +79,7 @@ public struct AZStack<Content>: View where Content: View{
             if self.foregroundColor != nil{
                 ZStack{
                     view()
-                }.foregroundColor(contrastRatio(color1: foregroundColor!, color2: backupColor) >= 4.5 ? foregroundColor : backupColor)
+                }.foregroundColor(contrastRatio(color1: foregroundColor!, color2: backgroundColor ?? .clear) >= 4.5 ? foregroundColor : backupColor)
             } else {
                 ZStack{
                     view()
