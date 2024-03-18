@@ -97,7 +97,7 @@ public struct AButton<Content>: View where Content: View{
         Button (action: self.action ) {
             view()
                 .padding(self.padding)
-                .foregroundColor(contrastRatio(color1: foregroundColor, color2: backupColor) >= 4.5 ? foregroundColor : backupColor)
+                .foregroundColor(contrastRatio(color1: foregroundColor, color2: backgroundColor) >= 4.5 ? foregroundColor : backupColor)
                 .background(
                     RoundedRectangle(cornerRadius: self.cornerRadius)
                         .stroke(self.borderColor, lineWidth: self.borderThickness)
